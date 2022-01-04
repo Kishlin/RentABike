@@ -1,0 +1,11 @@
+###> PHPStorm ###
+.idea
+
+###> Dev Env ###
+.env.local
+docker-compose.yaml
+
+###> Symfony ###
+api/vendor/
+api/var/*
+api/.env

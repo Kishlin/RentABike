@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+  php:
+    container_name: php-${PROJECT}
+    image: ${PROJECT}-php:${PHP_VERSION}
+    env_file:
+      - .env
+      - .env.local
+    build:
+      context: ./.docker/php/${PHP_VERSION}
+      args:
+        DOCKER_USER: <DOCKER_USER>
+        DOCKER_USER_ID: <DOCKER_USER_ID>
+    restart: "${RESTART_POLICIES}"
+    environment:
+      COMPOSER_CACHE_DIR: /srv/cache/composer-cache
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_VERSION: ${DB_VERSION}
+      DB_DRIVER: ${DB_DRIVER}
+      SSH_AUTH_SOCK: /ssh-agent
+      TZ: ${TIMEZONE}
+      XDEBUG_SESSION: PHPSTORM
+    volumes:
+      - ${PWD}:/var/www/html
+      - $SSH_AUTH_SOCK:/ssh-agent
+      - cache:/srv/cache
+    ports:
+      - "${SYMFONY_SERVER_PORT}:8000"
+    working_dir: /var/www/html/api
+    user: "<DOCKER_USER>"
+    entrypoint:
+      - ""
+    command:
+      - "php-fpm"
+    networks:
+      - "docker-rentabike"
+
+  postgres:
+    container_name: postgres-${PROJECT}
+    build:
+      context: ./.docker/postgres/${DB_VERSION}
+    ports:
+      - ${DB_PORT_EXTERNAL}
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ${PWD}:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - "docker-rentabike"
+
+networks:
+  docker-rentabike:
+    driver: bridge
+
+volumes:
+  cache:
+    external: true
