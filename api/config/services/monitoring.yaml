@@ -1,0 +1,11 @@
+services:
+
+    App\Monitoring\Probe\:
+        resource: '../../src/Monitoring/Probe/'
+        exclude: '../../src/Monitoring/Probe/ProbeInterface.php'
+        tags: ['monitoring.probe']
+
+    App\Monitoring\Controller\CheckHealthController:
+        class: App\Monitoring\Controller\CheckHealthController
+        arguments: [!tagged { tag: 'monitoring.probe' }]
+        public: true
