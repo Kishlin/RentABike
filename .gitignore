@@ -11,3 +11,8 @@ api/public/bundles/
 api/vendor/
 api/var/*
 api/.env
+
+###> phpunit/phpunit ###
+api/phpunit.xml
+api/.phpunit.result.cache
+###< phpunit/phpunit ###
