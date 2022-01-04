@@ -1,9 +1,20 @@
+parameters:
+    appEnv: '%env(resolve:APP_ENV)%'
+
 services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true
 
     App\Monitoring\Probe\:
         resource: '../../src/Monitoring/Probe/'
-        exclude: '../../src/Monitoring/Probe/ProbeInterface.php'
+        exclude:
+            - '../../src/Monitoring/Probe/ProbeInterface.php'
+            - '../../src/Monitoring/Probe/Database/'
         tags: ['monitoring.probe']
+
+    App\Monitoring\Probe\Database\:
+        resource: '../../src/Monitoring/Probe/Database/'
 
     App\Monitoring\Controller\CheckHealthController:
         class: App\Monitoring\Controller\CheckHealthController
