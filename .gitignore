@@ -1,18 +1,16 @@
 ###> PHPStorm ###
 .idea
+###< PHPStorm ###
 
 ###> Dev Env ###
 .env.local
+.env.*.local
 docker-compose.yaml
 .docker-cache
-
-###> Symfony ###
-api/config/secrets/prod/prod.decrypt.private.php
-api/public/bundles/
-api/vendor/
-api/var/*
+/vendor/
+/apps/*/*/var/
+###< Dev Env ###
 
 ###> phpunit/phpunit ###
-api/phpunit.xml
-api/.phpunit.result.cache
+.phpunit.result.cache
 ###< phpunit/phpunit ###
