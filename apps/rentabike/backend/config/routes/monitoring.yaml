@@ -1,0 +1,4 @@
+monitoring:
+    resource: ../../src/Controller/Monitoring/
+    prefix: /monitoring
+    type: annotation
