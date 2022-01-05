@@ -4,6 +4,7 @@
 ###> Dev Env ###
 .env.local
 docker-compose.yaml
+.docker-cache
 
 ###> Symfony ###
 api/config/secrets/prod/prod.decrypt.private.php
