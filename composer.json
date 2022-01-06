@@ -46,6 +46,9 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Kishlin\\Tests\\Apps\\Backoffice\\Backend\\": "apps/backoffice/backend/tests",
+            "Kishlin\\Tests\\Apps\\Rentabike\\Backend\\": "apps/rentabike/backend/tests",
+
             "Kishlin\\Tests\\": "tests/"
         }
     },

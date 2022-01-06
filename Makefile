@@ -26,7 +26,7 @@ composer-require-module: CMD=require $(module)
 composer-require-module: INTERACTIVE=-ti --interactive
 
 .PHONY: composer
-composer composer-install composer-update composer-require composer-require-module: .env.local
+composer-install composer-update composer-require composer-require-module: .env.local .docker-cache
 	@docker run --rm $(INTERACTIVE) --volume $(current-dir):/app --user $(id -u):$(id -g) \
 		composer:2 $(CMD) \
 			--ignore-platform-reqs \
@@ -76,7 +76,29 @@ clean:
 	@rm -rf docker-compose.yaml vendor
 
 # Helpers
-.PHONY: db.connect
+.PHONY: db.connect tests tests.backoffice tests.rentabike tests.src
 
 db.connect:
 	@docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
+
+tests: tests.backoffice tests.rentabike tests.src
+
+tests.backoffice:
+	@echo "Running tests for the Backoffice App"
+	@docker-compose exec rentabike-backend php -d xdebug.mode=off \
+		/rentabike/vendor/bin/phpunit -c /rentabike/apps/backoffice/backend/phpunit.xml
+	@echo ""
+
+
+tests.rentabike:
+	@echo "Running tests for the Rent A Bike App"
+	@docker-compose exec rentabike-backend php -d xdebug.mode=off \
+		/rentabike/vendor/bin/phpunit -c /rentabike/apps/rentabike/backend/phpunit.xml
+	@echo ""
+
+
+tests.src:
+	@echo "Running tests for the src/ folder"
+	@docker-compose exec rentabike-backend php -d xdebug.mode=off \
+		/rentabike/vendor/bin/phpunit -c /rentabike/phpunit.xml
+	@echo ""
