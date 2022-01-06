@@ -19,9 +19,11 @@ composer-update: CMD=update
 
 .PHONY: composer-require
 composer-require: CMD=require
+composer-require: INTERACTIVE=-ti --interactive
 
 .PHONY: composer-require-module
 composer-require-module: CMD=require $(module)
+composer-require: INTERACTIVE=-ti --interactive
 
 .PHONY: composer
 composer-install composer-update composer-require composer-require-module: .env.local .docker-cache
