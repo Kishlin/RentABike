@@ -12,3 +12,6 @@ services:
   Kishlin\Apps\Backoffice\Backend\Controller\:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']
+
+  Kishlin\Apps\Backoffice\Backend\Command\:
+    resource: '../src/Command'
