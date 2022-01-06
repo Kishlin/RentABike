@@ -19,11 +19,9 @@ composer-update: CMD=update
 
 .PHONY: composer-require
 composer-require: CMD=require
-composer-require: INTERACTIVE=-ti --interactive
 
 .PHONY: composer-require-module
 composer-require-module: CMD=require $(module)
-composer-require-module: INTERACTIVE=-ti --interactive
 
 .PHONY: composer
 composer-install composer-update composer-require composer-require-module: .env.local .docker-cache
@@ -73,7 +71,7 @@ clean:
 	@if [ -f "./docker-compose.yaml" ]; then \
 		docker-compose down; \
 	fi;
-	@rm -rf docker-compose.yaml vendor
+	@sudo rm -rf docker-compose.yaml vendor
 
 # Helpers
 .PHONY: db.connect tests tests.backoffice tests.rentabike tests.src
@@ -85,13 +83,15 @@ tests: tests.backoffice tests.rentabike tests.src
 
 tests.backoffice:
 	@echo "Running tests for the Backoffice App"
-	@docker-compose exec rentabike-backend php -d xdebug.mode=off \
+	@rm -rf apps/backoffice/backend/var/cache/test
+	@docker-compose exec backoffice-backend php -d xdebug.mode=off \
 		/rentabike/vendor/bin/phpunit -c /rentabike/apps/backoffice/backend/phpunit.xml
 	@echo ""
 
 
 tests.rentabike:
 	@echo "Running tests for the Rent A Bike App"
+	@rm -rf apps/backoffice/rentabike/var/cache/test
 	@docker-compose exec rentabike-backend php -d xdebug.mode=off \
 		/rentabike/vendor/bin/phpunit -c /rentabike/apps/rentabike/backend/phpunit.xml
 	@echo ""
