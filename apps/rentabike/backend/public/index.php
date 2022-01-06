@@ -1,9 +1,9 @@
 <?php
 
-use Kishlin\Apps\Rentabike\Backend\BackofficeBackendKernel;
+use Kishlin\Apps\Rentabike\Backend\RentabikeBackendKernel;
 
 require_once dirname(__DIR__).'/../../../vendor/autoload_runtime.php';
 
 return function (array $context) {
-    return new BackofficeBackendKernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+    return new RentabikeBackendKernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 };

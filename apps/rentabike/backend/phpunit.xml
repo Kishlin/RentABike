@@ -31,7 +31,7 @@
 
         <env name="APP_DEBUG" value="false"/>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
-        <env name="KERNEL_CLASS" value="Kishlin\Apps\Rentabike\Backend\BackofficeBackendKernel"/>
+        <env name="KERNEL_CLASS" value="Kishlin\Apps\Rentabike\Backend\RentabikeBackendKernel"/>
     </php>
 
     <testsuites>

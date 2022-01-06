@@ -7,7 +7,7 @@ namespace Kishlin\Apps\Rentabike\Backend;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
-final class BackofficeBackendKernel extends BaseKernel
+final class RentabikeBackendKernel extends BaseKernel
 {
     use MicroKernelTrait;
 
