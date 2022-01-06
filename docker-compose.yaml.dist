@@ -13,8 +13,8 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ${PWD}:/var/www/html
-    working_dir: /var/www/html
+      - ${PWD}:/rentabike
+    working_dir: /rentabike
     networks:
       - "docker-rentabike"
 
@@ -45,12 +45,12 @@ services:
         TZ: ${TIMEZONE}
         XDEBUG_SESSION: PHPSTORM
     volumes:
-        - ${PWD}:/var/www/html
+        - ${PWD}:/rentabike
         - $SSH_AUTH_SOCK:/ssh-agent
         - cache:/srv/cache
-    working_dir: /var/www/html
+    working_dir: /rentabike/apps/backoffice/backend
     user: "<DOCKER_USER>"
-    command: symfony server:start --dir=apps/backoffice/backend/public --port=8000 --force-php-discovery
+    command: symfony server:start --dir=/rentabike/apps/backoffice/backend/public --port=8000 --force-php-discovery
     networks:
         - "docker-rentabike"
 
@@ -81,12 +81,12 @@ services:
         TZ: ${TIMEZONE}
         XDEBUG_SESSION: PHPSTORM
     volumes:
-        - ${PWD}:/var/www/html
+        - ${PWD}:/rentabike
         - $SSH_AUTH_SOCK:/ssh-agent
         - cache:/srv/cache
-    working_dir: /var/www/html
+    working_dir: /rentabike/apps/rentabike/backend
     user: "<DOCKER_USER>"
-    command: symfony server:start --dir=apps/rentabike/backend/public --port=8000 --force-php-discovery
+    command: symfony server:start --dir=/rentabike/apps/rentabike/backend/public --port=8000 --force-php-discovery
     networks:
         - "docker-rentabike"
 

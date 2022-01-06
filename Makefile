@@ -37,7 +37,6 @@ docker-compose.yaml:
 	@cp docker-compose.yaml.dist docker-compose.yaml
 	@sed -i "s/<DOCKER_USER_ID>/$(shell $(shell echo id -u ${USER}))/g" $@
 	@sed -i "s/<DOCKER_USER>/$(shell echo ${USER})/g" $@
-	@sed -i 's/<REMOTE_HOST>/$(shell hostname -I | grep -Eo "192\.168\.[0-9]{,2}\.[0-9]+" | head -1)/g' $@
 
 .docker-cache:
 	@touch .docker-cache
