@@ -1,8 +1,14 @@
+parameters:
+  kishlin.app_name: 'rentabike-backend'
+
+imports:
+  - { resource: ../../../../src/Backend/Shared/Infrastructure/Symfony/DependencyInjection/shared_services.yaml }
+
 services:
   _defaults:
     autoconfigure: true
     autowire: true
 
-  Kishlin\Apps\Backoffice\Backend\Controller\:
+  Kishlin\Apps\Rentabike\Backend\Controller\:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']

@@ -1,3 +1,9 @@
+parameters:
+  kishlin.app_name: 'backoffice-backend'
+
+imports:
+  - { resource: ../../../../src/Backend/Shared/Infrastructure/Symfony/DependencyInjection/shared_services.yaml }
+
 services:
   _defaults:
     autoconfigure: true
