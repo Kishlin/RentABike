@@ -1,5 +1,14 @@
 doctrine:
   dbal:
     url: '%env(resolve:DATABASE_URL)%'
+    types:
+      bike_id: Kishlin\Backend\Bikes\Infrastructure\Persistence\Doctrine\BikeIdType
   orm:
     auto_generate_proxy_classes: true
+    mappings:
+      Kishlin\Backend\Bikes\Domain:
+        type: xml
+        dir: '%kernel.project_dir%/../../../src/Backend/Bikes/Infrastructure/Persistence/Doctrine/Mapping'
+        is_bundle: false
+        prefix: Kishlin\Backend\Bikes\Domain
+        alias: Kishlin

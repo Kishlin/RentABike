@@ -1,0 +1,4 @@
+monitoring:
+  resource: ../../src/Controller/Bikes/
+  prefix: /bikes
+  type: annotation

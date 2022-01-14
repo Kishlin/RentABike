@@ -1,0 +1,3 @@
+doctrine_migrations:
+  migrations_paths:
+    'Kishlin\Migrations': '%kernel.project_dir%/../../../etc/Migrations'

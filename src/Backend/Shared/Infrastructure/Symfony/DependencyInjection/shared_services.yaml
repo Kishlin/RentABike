@@ -13,3 +13,8 @@ services:
     Kishlin\Backend\Shared\Infrastructure\Monitoring\Probe\AppProbe:
       bind:
         $appName: '%kishlin.app_name%'
+
+  Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+
+  Kishlin\Backend\Bikes\Application\Create\CreateBikeCommandHandler:
+    public: true
