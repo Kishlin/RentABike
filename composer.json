@@ -19,6 +19,7 @@
         "symfony/framework-bundle": "6.0.*",
         "symfony/proxy-manager-bridge": "6.0.*",
         "symfony/runtime": "6.0.*",
+        "symfony/service-contracts": "^2.5",
         "symfony/yaml": "6.0.*"
     },
     "config": {
@@ -67,6 +68,7 @@
         }
     },
     "require-dev": {
+        "behat/behat": "^3.10",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.0.*"
     }
