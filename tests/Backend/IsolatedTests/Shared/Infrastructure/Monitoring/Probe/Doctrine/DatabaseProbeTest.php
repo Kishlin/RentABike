@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Kishlin\Backend\Shared\Infrastructure\Monitoring\Probe\Doctrine\DatabaseProbe;
 use PHPUnit\Framework\TestCase;
 
-class DatabaseProbeTest extends TestCase
+final class DatabaseProbeTest extends TestCase
 {
     public function testItIsAliveWhenConnected(): void
     {

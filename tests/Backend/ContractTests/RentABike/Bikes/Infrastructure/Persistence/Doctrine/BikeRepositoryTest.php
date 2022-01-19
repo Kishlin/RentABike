@@ -9,7 +9,7 @@ use Kishlin\Backend\RentABike\Bikes\Infrastructure\Persistence\Doctrine\BikeRepo
 use Kishlin\Tests\Backend\Tools\Provider\BikeProvider;
 use Kishlin\Tests\Backend\Tools\Test\RepositoryContractTestCase;
 
-class BikeRepositoryTest extends RepositoryContractTestCase
+final class BikeRepositoryTest extends RepositoryContractTestCase
 {
     /**
      * @dataProvider bikeProvider
