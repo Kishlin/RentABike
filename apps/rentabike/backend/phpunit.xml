@@ -11,7 +11,7 @@
          beStrictAboutChangesToGlobalState="true"
          beStrictAboutTestsThatDoNotTestAnything="false"
          beStrictAboutTodoAnnotatedTests="true"
-         bootstrap="../../bootstrap.test.php"
+         bootstrap="../../../tests/Backend/bootstrap.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -35,12 +35,12 @@
     </php>
 
     <testsuites>
-        <testsuite name="Integration Tests">
-            <directory>tests/IntegrationTests</directory>
+        <testsuite name="functional">
+            <directory>tests/FunctionalTests</directory>
         </testsuite>
 
-        <testsuite name="Functional Tests">
-            <directory>tests/FunctionalTests</directory>
+        <testsuite name="integration">
+            <directory>tests/IntegrationTests</directory>
         </testsuite>
     </testsuites>
 
