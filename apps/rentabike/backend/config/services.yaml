@@ -1,14 +1,28 @@
 parameters:
-  kishlin.app_name: 'rentabike-backend'
+  kishlin.app.name: 'rentabike-backend'
+  kishlin.app.environment: '%env(APP_ENV)%'
+  kishlin.database.url: '%env(DATABASE_URL)%'
 
 imports:
-  - { resource: ../../../../src/Backend/Shared/Infrastructure/Symfony/DependencyInjection/shared_services.yaml }
+  - { resource: ../../../../src/Backend/RentABike/Shared/Infrastructure/DependencyInjection/Symfony/rentabike_services.yaml }
+  - { resource: ../../../../src/Backend/Shared/Infrastructure/DependencyInjection/Symfony/shared_services.yaml }
 
 services:
   _defaults:
     autoconfigure: true
     autowire: true
 
-  Kishlin\Apps\Rentabike\Backend\Controller\:
-    resource: '../src/Controller'
+
+  ##> Monitoring
+
+  Kishlin\Apps\Rentabike\Backend\Monitoring\Controller\:
+    resource: '../src/Monitoring/Controller'
     tags: ['controller.service_arguments']
+
+
+when@test:
+  services:
+
+    # Has to be public to be replaced with a mock in Driving Tests
+    Kishlin\Backend\Shared\Domain\Bus\Command\CommandBus:
+      public: true
