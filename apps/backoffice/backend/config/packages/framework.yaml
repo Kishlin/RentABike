@@ -8,6 +8,13 @@ framework:
   php_errors:
     log: true
 
+  messenger:
+    default_bus: symfony.messenger.bus.command
+    buses:
+      symfony.messenger.bus.command: ~
+      symfony.messenger.bus.event: ~
+      symfony.messenger.bus.query: ~
+
 when@test:
   framework:
     test: true
