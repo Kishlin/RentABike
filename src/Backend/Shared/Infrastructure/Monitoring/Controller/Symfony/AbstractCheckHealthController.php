@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Kishlin\Backend\Shared\Infrastructure\Symfony\Controller\Monitoring;
+namespace Kishlin\Backend\Shared\Infrastructure\Monitoring\Controller\Symfony;
 
 use Kishlin\Backend\Shared\Infrastructure\Monitoring\Probe\Probe;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class CheckHealthController
+abstract class AbstractCheckHealthController
 {
     /** @var Probe[] $probes */
     private iterable $probes;
