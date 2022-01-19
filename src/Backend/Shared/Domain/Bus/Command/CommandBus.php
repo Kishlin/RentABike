@@ -6,5 +6,5 @@ namespace Kishlin\Backend\Shared\Domain\Bus\Command;
 
 interface CommandBus
 {
-    public function dispatch(Command $command): void;
+    public function execute(Command $command): mixed;
 }
