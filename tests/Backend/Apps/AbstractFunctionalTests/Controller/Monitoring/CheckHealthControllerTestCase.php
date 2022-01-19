@@ -2,21 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Kishlin\Tests\Backend\Apps\FunctionalTests\Controller\Monitoring;
+namespace Kishlin\Tests\Backend\Apps\AbstractFunctionalTests\Controller\Monitoring;
 
-use Kishlin\Tests\Backend\PHPUnit\Monitoring\Constraint\ServiceStatusIsShowingConstraint;
+use Kishlin\Tests\Backend\Apps\AbstractFunctionalTests\Controller\Monitoring\Constraint\ServiceStatusIsShowingConstraint;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-abstract class CheckHealthTestCase extends WebTestCase
+abstract class CheckHealthControllerTestCase extends WebTestCase
 {
     /**
      * @param string[] $services
      */
-    protected function doTestAPIResponse(array $services): void
-    {
-        $client = self::createClient();
-
-        $client->request('GET', '/monitoring/check-health');
+    protected function assertTheAPIShowsStatusForAllServices(
+        KernelBrowser $client,
+        string $uri,
+        array $services = []
+    ): void {
+        $client->request('GET', $uri);
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseFormatSame('json');

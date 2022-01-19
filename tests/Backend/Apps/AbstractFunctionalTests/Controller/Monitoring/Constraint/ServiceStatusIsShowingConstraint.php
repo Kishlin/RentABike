@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kishlin\Tests\Backend\PHPUnit\Monitoring\Constraint;
+namespace Kishlin\Tests\Backend\Apps\AbstractFunctionalTests\Controller\Monitoring\Constraint;
 
 use PHPUnit\Framework\Constraint\Constraint;
 
