@@ -32,7 +32,7 @@ composer-install composer-update composer-require composer-require-module: .env.
 			--ignore-platform-reqs \
 			--no-ansi
 
-# Project
+##> Project
 docker-compose.yaml:
 	@cp docker-compose.yaml.dist docker-compose.yaml
 	@sed -i "s/<DOCKER_USER_ID>/$(shell $(shell echo id -u ${USER}))/g" $@
@@ -75,7 +75,7 @@ clean:
 	fi;
 	@sudo rm -rf docker-compose.yaml vendor
 
-# Helpers
+##> Helpers
 .PHONY: db.connect tests.usecases tests.src.isolated tests.src.contract tests.src tests
 .PHONY: tests.backoffice tests.backoffice.driving tests.backoffice.functional tests.backoffice.integration
 .PHONY: tests.rentabike tests.rentabike.functional tests.rentabike.integration
