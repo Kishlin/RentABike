@@ -76,10 +76,18 @@ clean:
 	@sudo rm -rf docker-compose.yaml vendor
 
 # Helpers
-.PHONY: db.connect tests tests.backoffice tests.rentabike tests.src
+.PHONY: db.connect tests.usecases tests.src.isolated tests.src.contract tests.src tests
+.PHONY: tests.backoffice tests.backoffice.driving tests.backoffice.functional tests.backoffice.integration
+.PHONY: tests.rentabike tests.rentabike.functional tests.rentabike.integration
 
 db.connect:
 	@docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
+
+tests.usecases:
+	@echo "Running Use Case Tests for src/"
+	@docker-compose exec backoffice-backend php -d xdebug.mode=off \
+		/rentabike/vendor/bin/behat --config /rentabike/behat-config.yml --suite use_case_tests
+	@echo ""
 
 tests.src.isolated:
 	@echo "Running Isolated Tests for the src/ folder"
@@ -95,24 +103,43 @@ tests.src.contract:
 
 tests.src: tests.src.isolated tests.src.contract
 
-tests.usecases:
-	@echo "Running Use Case Tests for src/"
-	@docker-compose exec backoffice-backend php -d xdebug.mode=off \
-		/rentabike/vendor/bin/behat --config /rentabike/behat-config.yml --suite use_case_tests
-	@echo ""
-
-tests.backoffice:
-	@echo "Running tests for the Backoffice App"
+tests.backoffice.driving:
+	@echo "Running Driving Tests for the Backoffice App"
 	@rm -rf apps/backoffice/backend/var/cache/test
 	@docker-compose exec backoffice-backend php -d xdebug.mode=off \
-		/rentabike/vendor/bin/phpunit -c /rentabike/apps/backoffice/backend/phpunit.xml
+		/rentabike/vendor/bin/phpunit -c /rentabike/apps/backoffice/backend/phpunit.xml --testsuite driving
 	@echo ""
 
-tests.rentabike:
-	@echo "Running tests for the Rent A Bike App"
+tests.backoffice.functional:
+	@echo "Running Functional Tests for the Backoffice App"
+	@rm -rf apps/backoffice/backend/var/cache/test
+	@docker-compose exec backoffice-backend php -d xdebug.mode=off \
+		/rentabike/vendor/bin/phpunit -c /rentabike/apps/backoffice/backend/phpunit.xml --testsuite functional
+	@echo ""
+
+tests.backoffice.integration:
+	@echo "Running Integration Tests for the Backoffice App"
+	@rm -rf apps/backoffice/backend/var/cache/test
+	@docker-compose exec backoffice-backend php -d xdebug.mode=off \
+		/rentabike/vendor/bin/phpunit -c /rentabike/apps/backoffice/backend/phpunit.xml --testsuite integration
+	@echo ""
+
+tests.backoffice: tests.backoffice.driving tests.backoffice.functional tests.backoffice.integration
+
+tests.rentabike.functional:
+	@echo "Running Functional Tests for the Rent A Bike App"
 	@rm -rf apps/backoffice/rentabike/var/cache/test
 	@docker-compose exec rentabike-backend php -d xdebug.mode=off \
-		/rentabike/vendor/bin/phpunit -c /rentabike/apps/rentabike/backend/phpunit.xml
+		/rentabike/vendor/bin/phpunit -c /rentabike/apps/rentabike/backend/phpunit.xml --testsuite functional
 	@echo ""
 
-tests: tests.backoffice tests.rentabike tests.src tests.usecasetests
+tests.rentabike.integration:
+	@echo "Running Integration Tests for the Rent A Bike App"
+	@rm -rf apps/backoffice/rentabike/var/cache/test
+	@docker-compose exec rentabike-backend php -d xdebug.mode=off \
+		/rentabike/vendor/bin/phpunit -c /rentabike/apps/rentabike/backend/phpunit.xml --testsuite integration
+	@echo ""
+
+tests.rentabike: tests.rentabike.functional tests.rentabike.integration
+
+tests: tests.usecases tests.src tests.backoffice tests.rentabike
