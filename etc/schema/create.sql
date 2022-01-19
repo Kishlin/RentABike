@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 13.3 (Debian 13.3-1.pgdg100+1)
--- Dumped by pg_dump version 13.3 (Debian 13.3-1.pgdg100+1)
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -25,9 +18,9 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.bikes (
-    bike_id character varying(36) NOT NULL,
-    bike_type character varying(255) NOT NULL,
-    bike_name character varying(255) NOT NULL
+                              bike_id character varying(36) NOT NULL,
+                              bike_type character varying(255) NOT NULL,
+                              bike_name character varying(255) NOT NULL
 );
 
 
@@ -38,9 +31,9 @@ ALTER TABLE public.bikes OWNER TO rentabike;
 --
 
 CREATE TABLE public.doctrine_migration_versions (
-    version character varying(191) NOT NULL,
-    executed_at timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
-    execution_time integer
+                                                    version character varying(191) NOT NULL,
+                                                    executed_at timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+                                                    execution_time integer
 );
 
 
