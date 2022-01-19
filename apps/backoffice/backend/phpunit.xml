@@ -11,7 +11,7 @@
          beStrictAboutChangesToGlobalState="true"
          beStrictAboutTestsThatDoNotTestAnything="false"
          beStrictAboutTodoAnnotatedTests="true"
-         bootstrap="../../bootstrap.test.php"
+         bootstrap="../../../tests/Backend/bootstrap.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -28,19 +28,23 @@
     <php>
         <ini name="display_errors" value="1" />
         <ini name="error_reporting" value="-1" />
-        
+
         <env name="APP_DEBUG" value="false"/>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
         <env name="KERNEL_CLASS" value="Kishlin\Apps\Backoffice\Backend\BackofficeBackendKernel"/>
     </php>
 
     <testsuites>
-        <testsuite name="Integration Tests">
-            <directory>tests/IntegrationTests</directory>
+        <testsuite name="driving">
+            <directory>tests/DrivingTests</directory>
         </testsuite>
 
-        <testsuite name="Functional Tests">
+        <testsuite name="functional">
             <directory>tests/FunctionalTests</directory>
+        </testsuite>
+
+        <testsuite name="integration">
+            <directory>tests/IntegrationTests</directory>
         </testsuite>
     </testsuites>
 
