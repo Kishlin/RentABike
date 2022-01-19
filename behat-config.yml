@@ -1,0 +1,4 @@
+default:
+  suites:
+    use_case_tests:
+      paths:    [ features ]
