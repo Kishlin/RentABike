@@ -24,14 +24,14 @@ abstract class UuidValueObject implements Stringable
 
     private function ensureIsValid(string $value): void
     {
-        if (false === $this->isValid($value)) {
+        if (false === $this->isAValidUuid($value)) {
             throw new \InvalidArgumentException('The given value is not a valid Uuid.');
         }
     }
 
-    private function isValid(string $value): int|false
+    private function isAValidUuid(string $value): bool
     {
-        return preg_match('/' . self::VALID_PATTERN . '/Dms', $value);
+        return 1 === preg_match('/' . self::VALID_PATTERN . '/Dms', $value);
     }
 
     public function __toString(): string
