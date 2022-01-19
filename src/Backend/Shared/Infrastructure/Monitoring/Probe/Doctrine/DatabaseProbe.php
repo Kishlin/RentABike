@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kishlin\Backend\Shared\Infrastructure\Doctrine\Probe;
+namespace Kishlin\Backend\Shared\Infrastructure\Monitoring\Probe\Doctrine;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,7 +11,7 @@ use Kishlin\Backend\Shared\Infrastructure\Monitoring\Probe\Probe;
 final class DatabaseProbe implements Probe
 {
     public function __construct(
-        private ?EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager
     ) { }
 
     public function name(): string
@@ -21,8 +21,6 @@ final class DatabaseProbe implements Probe
 
     public function isAlive(): bool
     {
-        if (null === $this->entityManager) return false;
-
         $connection = $this->entityManager->getConnection();
 
         try {
