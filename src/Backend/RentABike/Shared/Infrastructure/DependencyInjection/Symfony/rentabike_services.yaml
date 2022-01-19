@@ -1,0 +1,18 @@
+imports:
+  - { resource: ../../../../Bikes/Infrastructure/DependencyInjection/Symfony/bikes_services.yaml }
+
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+
+##> Persistence
+
+  Doctrine\ORM\EntityManagerInterface:
+    factory: [ Kishlin\Backend\RentABike\Shared\Infrastructure\Doctrine\RentABikeEntityManagerFactory, create ]
+    arguments:
+      - url: '%kishlin.database.url%'
+      - '%kishlin.app.environment%'
+    public: true
+
+  kishlin.infrastructure.entity_manager: '@Doctrine\ORM\EntityManagerInterface'

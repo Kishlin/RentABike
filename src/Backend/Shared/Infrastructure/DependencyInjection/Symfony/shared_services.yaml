@@ -1,0 +1,34 @@
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+    bind:
+      $appName: '%kishlin.app.name%'
+
+
+  ##> Messaging
+
+  Kishlin\Backend\Shared\Domain\Bus\Command\CommandBus:
+    class: 'Kishlin\Backend\Shared\Infrastructure\Bus\Command\InMemoryCommandBusUsingSymfony'
+    arguments:
+      - '@symfony.messenger.bus.command'
+
+  Kishlin\Backend\Shared\Domain\Bus\Event\EventDispatcher:
+    class: 'Kishlin\Backend\Shared\Infrastructure\Bus\Event\InMemoryEventDispatcherUsingSymfony'
+    arguments:
+      - '@symfony.messenger.bus.event'
+
+  ##> Monitoring
+
+  Kishlin\Backend\Shared\Infrastructure\Monitoring\:
+    resource: '../../../Infrastructure/Monitoring'
+
+  _instanceof:
+    Kishlin\Backend\Shared\Infrastructure\Monitoring\Probe\Probe:
+      tags: ['kishlin.infrastructure.monitoring.probe']
+
+
+  ##> Randomness
+
+  Kishlin\Backend\Shared\Domain\Randomness\UuidGenerator:
+    class: 'Kishlin\Backend\Shared\Infrastructure\Randomness\UuidGeneratorUsingRamsey'

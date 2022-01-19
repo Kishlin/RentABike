@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+
+  Kishlin\Backend\RentABike\Bikes\Application\Create\BikeCreator:
+    class: 'Kishlin\Backend\RentABike\Bikes\Application\Create\BikeCreator'
+    tags:
+      - { name: messenger.message_handler, bus: symfony.messenger.bus.command }
+
+  Kishlin\Backend\RentABike\Bikes\Domain\BikeGateway:
+    class: 'Kishlin\Backend\RentABike\Bikes\Infrastructure\Persistence\Doctrine\BikeRepository'
