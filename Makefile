@@ -81,7 +81,25 @@ clean:
 db.connect:
 	@docker-compose exec postgres /bin/bash -c 'psql -U $$POSTGRES_USER'
 
-tests: tests.backoffice tests.rentabike tests.src
+tests.src.isolated:
+	@echo "Running Isolated Tests for the src/ folder"
+	@docker-compose exec rentabike-backend php -d xdebug.mode=off \
+		/rentabike/vendor/bin/phpunit -c /rentabike/phpunit.xml --testsuite isolated
+	@echo ""
+
+tests.src.contract:
+	@echo "Running Contract Tests for the src/ folder"
+	@docker-compose exec rentabike-backend php -d xdebug.mode=off \
+		/rentabike/vendor/bin/phpunit -c /rentabike/phpunit.xml --testsuite contract
+	@echo ""
+
+tests.src: tests.src.isolated tests.src.contract
+
+tests.usecases:
+	@echo "Running Use Case Tests for src/"
+	@docker-compose exec backoffice-backend php -d xdebug.mode=off \
+		/rentabike/vendor/bin/behat --config /rentabike/behat-config.yml --suite use_case_tests
+	@echo ""
 
 tests.backoffice:
 	@echo "Running tests for the Backoffice App"
@@ -90,7 +108,6 @@ tests.backoffice:
 		/rentabike/vendor/bin/phpunit -c /rentabike/apps/backoffice/backend/phpunit.xml
 	@echo ""
 
-
 tests.rentabike:
 	@echo "Running tests for the Rent A Bike App"
 	@rm -rf apps/backoffice/rentabike/var/cache/test
@@ -98,9 +115,4 @@ tests.rentabike:
 		/rentabike/vendor/bin/phpunit -c /rentabike/apps/rentabike/backend/phpunit.xml
 	@echo ""
 
-
-tests.src:
-	@echo "Running tests for the src/ folder"
-	@docker-compose exec rentabike-backend php -d xdebug.mode=off \
-		/rentabike/vendor/bin/phpunit -c /rentabike/phpunit.xml
-	@echo ""
+tests: tests.backoffice tests.rentabike tests.src tests.usecasetests

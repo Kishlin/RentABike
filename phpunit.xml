@@ -31,8 +31,12 @@
     </php>
 
     <testsuites>
-        <testsuite name="Unit Tests">
-            <directory>tests/Backend/UnitTests</directory>
+        <testsuite name="isolated">
+            <directory>tests/Backend/IsolatedTests</directory>
+        </testsuite>
+
+        <testsuite name="contract">
+            <directory>tests/Backend/ContractTests</directory>
         </testsuite>
     </testsuites>
 
