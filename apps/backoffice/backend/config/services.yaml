@@ -1,17 +1,38 @@
 parameters:
-  kishlin.app_name: 'backoffice-backend'
+  kishlin.app.name: 'backoffice-backend'
+  kishlin.app.environment: '%env(APP_ENV)%'
+  kishlin.database.url: '%env(DATABASE_URL)%'
 
 imports:
-  - { resource: ../../../../src/Backend/Shared/Infrastructure/Symfony/DependencyInjection/shared_services.yaml }
+  - { resource: ../../../../src/Backend/RentABike/Shared/Infrastructure/DependencyInjection/Symfony/rentabike_services.yaml }
+  - { resource: ../../../../src/Backend/Shared/Infrastructure/DependencyInjection/Symfony/shared_services.yaml }
 
 services:
   _defaults:
     autoconfigure: true
     autowire: true
 
-  Kishlin\Apps\Backoffice\Backend\Controller\:
-    resource: '../src/Controller'
+
+##> RentABike/Bikes
+
+  Kishlin\Apps\Backoffice\Backend\RentABike\Bikes\Controller\:
+    resource: '../src/RentABike/Bikes/Controller'
     tags: ['controller.service_arguments']
 
-  Kishlin\Apps\Backoffice\Backend\Command\:
-    resource: '../src/Command'
+  Kishlin\Apps\Backoffice\Backend\RentABike\Bikes\Command\:
+    resource: '../src/RentABike/Bikes/Command'
+
+
+##> Monitoring
+
+  Kishlin\Apps\Backoffice\Backend\Monitoring\Controller\:
+    resource: '../src/Monitoring/Controller'
+    tags: ['controller.service_arguments']
+
+
+when@test:
+  services:
+
+    # Has to be public to be replaced with a mock in Driving Tests
+    Kishlin\Backend\Shared\Domain\Bus\Command\CommandBus:
+      public: true

@@ -1,0 +1,4 @@
+monitoring:
+  resource: ../../src/RentABike/Bikes/Controller
+  prefix: /bikes
+  type: annotation
