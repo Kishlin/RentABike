@@ -10,7 +10,7 @@ use Kishlin\Backend\Shared\Domain\Aggregate\AggregateRoot;
 abstract class DoctrineRepository
 {
     public function __construct(
-        private EntityManagerInterface $entityManager
+        protected EntityManagerInterface $entityManager
     ) {}
 
     protected function persist(AggregateRoot $entity): void
